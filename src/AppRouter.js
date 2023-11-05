@@ -8,8 +8,12 @@ function AppRoutes() {
     res.json({ service: process.env.APP_NAME });
   });
 
-  app.get("/start-poller", (req, res) => {
-    AdController.startPoller(req, res);
+  app.get("/start-poll", (req, res) => {
+    AdController.startPoll(req, res);
+  });
+
+  app.get("/end-poll", (req, res) => {
+    AdController.stopPoll(req, res);
   });
 }
 
