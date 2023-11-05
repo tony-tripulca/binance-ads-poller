@@ -9,6 +9,7 @@ function AppRoutes() {
   });
 
   app.get("/start-poll", (req, res) => {
+    Logger.out([`GET /start-poll`, req.query]);
     AdController.startPoll(req, res);
   });
 

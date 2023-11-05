@@ -28,7 +28,7 @@ const AdController = {
       return;
     }
 
-    let minutes = 5;
+    let minutes = 0.5;
 
     let data = {
       asset: req.query.asset,
