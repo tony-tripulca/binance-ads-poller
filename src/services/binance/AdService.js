@@ -1,27 +1,20 @@
 import axios from "axios";
 import URL from "../../config/url.js";
+import { createSignature, toQueryString } from "../../util/Hash.js";
+
+const API_KEY = process.env.BINANCE_API_KEY;
+const SECRET_KEY = process.env.BINANCE_SECRET_KEY;
 
 const AdService = {
-  list: (payload) => {
-    return axios({
-      method: "GET",
-      baseURL: URL.binance(),
-      url: "/orders",
-      headers: {
-        "X-DV-Auth-Token": process.env.BORZO_TOKEN,
-      },
-      params: payload,
-    });
-  },
+  searchAndSave: (payload) => {
+    let endpoint = "/ads/search";
+    payload.signature = createSignature(SECRET_KEY, toQueryString(payload));
 
-  create: (payload) => {
     return axios({
       method: "POST",
       baseURL: URL.binance(),
-      url: "/create-order",
-      headers: {
-        "X-DV-Auth-Token": process.env.BORZO_TOKEN,
-      },
+      url: `${endpoint}?${toQueryString(payload)}`,
+      headers: { "X-MBX-APIKEY": API_KEY },
       data: payload,
     });
   },
